@@ -1,12 +1,27 @@
 import axios from 'axios';
 
-async function request(url, options = { method: 'GET'}) {
-    const OPTIONS = options;
-    if (!url.includes('login') || !url.includes('signup')) {
-        OPTIONS.headers = { 'authorization': `Bearer ${localStorage.getItem('token')}` }
+async function request(method, url, headers, data) {
+  const HEADERS = headers;
+  if (!url.includes('login') && !url.includes('signup')) {
+    HEADERS.Authorization = `Bearer ${localStorage.getItem('token')}`;
+  }
+  try {
+    const response = await axios({
+      method,
+      url,
+      data,
+      headers
+    });
+    return response;
+  } catch (error) {
+    if (error.response.status === 401) {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location = '/';
+    } else {
+      return error;
     }
-    const response = await axios({url, options});
-    console.log(response);
+  }
 }
 
 export default request;

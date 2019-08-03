@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import request from '../../modules/Request';
+import Auth from '../../modules/Auth';
 
 const styles = theme => ({
   '@global': {
@@ -59,12 +60,20 @@ class Login extends Component {
     });
   }
 
-  handleLogin() {
-    const response = request('http://localhost:3001/auth/login', {
-      method: 'POST',
-      headers: { 'Content-type': 'application/x-www-form-urlencoded' }
-		});
-		console.log(response);
+  async handleLogin(event) {
+		event.preventDefault();
+		const email = encodeURIComponent(this.state.user.email);
+    const password = encodeURIComponent(this.state.user.password);
+    const formData = `email=${email}&password=${password}`;
+    const response = await request('POST', 'http://localhost:3001/auth/login', {
+      'Content-type': 'application/x-www-form-urlencoded'
+		}, formData);
+    if (response.data.success) {
+			Auth.authenticateUser(response.data.token);
+			this.props.history.push('/');
+		} else {
+			this.setState({ errors: response.response.data });
+		}
   }
 
   render() {
@@ -108,10 +117,10 @@ class Login extends Component {
               value={user.password}
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
+              onClick={this.handleLogin}
               className={classes.submit}>
               Sign In
             </Button>
