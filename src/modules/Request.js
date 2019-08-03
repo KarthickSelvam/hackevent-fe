@@ -14,12 +14,12 @@ async function request(method, url, headers, data) {
     });
     return response;
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response && error.response.status === 401) {
       localStorage.clear();
       sessionStorage.clear();
       window.location = '/';
     } else {
-      return error;
+      return error.response;
     }
   }
 }

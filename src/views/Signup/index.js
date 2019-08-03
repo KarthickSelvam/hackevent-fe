@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import request from '../../modules/Request';
 
 const styles = theme => ({
   '@global': {
@@ -36,8 +37,54 @@ const styles = theme => ({
 });
 
 class Signup extends Component {
+  constructor() {
+    super();
+    this.state = {
+      errors: {},
+      user: {
+        name: '',
+        email: '',
+        password: ''
+      }
+    };
+    this.handleSignup = this.handleSignup.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      user: {
+        ...this.state.user,
+        [event.target.name]: event.target.value
+      }
+    });
+  }
+
+  async handleSignup(event) {
+    event.preventDefault();
+    const name = encodeURIComponent(this.state.user.name);
+    const email = encodeURIComponent(this.state.user.email);
+    const password = encodeURIComponent(this.state.user.password);
+    const formData = `name=${name}&email=${email}&password=${password}`;
+    const response = await request(
+      'POST',
+      'http://localhost:3001/auth/signup',
+      {
+        'Content-type': 'application/x-www-form-urlencoded'
+      },
+      formData
+    );
+    if (response.data && response.data.success) {
+      this.props.history.push('/login');
+    } else {
+      console.log(response.data);
+      this.setState({ errors: response.data });
+    }
+  }
+
   render() {
     const { classes } = this.props;
+    const { name, email, password, errors } = this.state;
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -50,27 +97,18 @@ class Signup extends Component {
           </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
-                  autoComplete="fname"
-                  name="firstName"
+                  autoComplete="name"
+                  name="name"
                   variant="outlined"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name"
+                  label="Full Name"
+                  value={name}
+                  onChange={this.handleChange}
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lname"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -81,6 +119,8 @@ class Signup extends Component {
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={email}
+                  onChange={this.handleChange}
                   autoComplete="email"
                 />
               </Grid>
@@ -94,17 +134,41 @@ class Signup extends Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  value={password}
+                  onChange={this.handleChange}
                 />
               </Grid>
             </Grid>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}>
+              className={classes.submit}
+              onClick={this.handleSignup}>
               Sign Up
             </Button>
+            {errors &&
+            errors.errors &&
+            (errors.errors.email || errors.errors.password) ? (
+              <div
+                style={{
+                  color: 'red',
+                  textAlign: 'center',
+                  margin: '5px 0px'
+                }}>
+                {errors.errors.email || ''}
+                {errors.errors.password || ''}
+              </div>
+            ) : (
+              <div
+                style={{
+                  color: 'red',
+                  textAlign: 'center',
+                  margin: '5px 0px'
+                }}>
+                {errors.message}
+              </div>
+            )}
             <Grid container justify="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">
