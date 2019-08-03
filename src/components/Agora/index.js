@@ -41,7 +41,6 @@ class Call extends Component {
         console.log('getUserMedia successfully');
         me.localStream.play('agora_local');
         me.joinChannel();
-
       },
       function(err) {
         console.log('getUserMedia failed', err);
@@ -145,7 +144,7 @@ class Call extends Component {
   render() {
     return (
       <div>
-        <div id="agora_local" style={{ width: '300px', height: '400px' }} />
+        <div id="agora_local" style={{ width: '100%', height: '100vh' }} />
         {Object.keys(this.state.remoteStreams).map(key => {
           let stream = this.state.remoteStreams[key];
           let streamId = stream.getId();
@@ -155,9 +154,10 @@ class Call extends Component {
               id={`agora_remote ${streamId}`}
               style={{
                 width: '100px',
-                height: '100px',
+                height: '85px',
                 position: 'absolute',
-                bottom: 0
+                bottom: '10px',
+                right: '10px'
               }}
             />
           );

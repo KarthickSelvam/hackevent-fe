@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { socketConnect } from 'socket.io-react';
-import { Button, Card, CardActions, CardContent, Grid, Typography, withStyles } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  Typography,
+  withStyles
+} from '@material-ui/core';
 import image from '../../assets/img/background-image.jpg';
 
 const styles = () => ({
@@ -18,14 +26,14 @@ const styles = () => ({
   },
   card: {
     width: 275,
-    margin: 10,
+    margin: 10
   },
   title: {
-    fontSize: 14,
+    fontSize: 14
   },
   pos: {
-    marginBottom: 12,
-  },
+    marginBottom: 12
+  }
 });
 
 class Homepage extends Component {
@@ -56,34 +64,52 @@ class Homepage extends Component {
             backgroundImage: 'url(' + image + ')',
             backgroundSize: 'cover',
             backgroundPosition: 'top center',
-            display: 'flex',
-          }}
-        >
+            display: 'flex'
+          }}>
           <Grid container justify="center">
             <Card className={classes.card}>
               <CardContent>
-                <Typography className={classes.title} color="textPrimary" component="p" gutterBottom variant="body2">
+                <Typography
+                  className={classes.title}
+                  color="textPrimary"
+                  component="p"
+                  gutterBottom
+                  variant="body2">
                   Pronunciation Checker
                 </Typography>
                 <Typography component="p" variant="body2">
-                  A two player game where you will be spelling out the sentence that is displayed. A score will be given to you on the basis of your pronunciation accuracy.
+                  A two player game where you will be spelling out the sentence
+                  that is displayed. A score will be given to you on the basis
+                  of your pronunciation accuracy.
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => this.getGameUrl('game1')} size="small">Play Now</Button>
+                <Button onClick={() => this.getGameUrl('game1')} size="small">
+                  Play Now
+                </Button>
               </CardActions>
             </Card>
             <Card className={classes.card}>
               <CardContent>
-                <Typography className={classes.title} color="textPrimary" component="p" gutterBottom variant="body2">
+                <Typography
+                  className={classes.title}
+                  color="textPrimary"
+                  component="p"
+                  gutterBottom
+                  variant="body2">
                   Word War
                 </Typography>
                 <Typography component="p" variant="body2">
-                  A two player game where you will be given with a word and you should find the synonym and your partner should find the antonym of the word. A score will be given on the basis of correct answer.
+                  A two player game where you will be given with a word and you
+                  should find the synonym and your partner should find the
+                  antonym of the word. A score will be given on the basis of
+                  correct answer.
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => this.getGameUrl('game2')} size="small">Play Now</Button>
+                <Button onClick={() => this.getGameUrl('game2')} size="small">
+                  Play Now
+                </Button>
               </CardActions>
             </Card>
           </Grid>
@@ -95,7 +121,7 @@ class Homepage extends Component {
 
 Homepage.propTypes = {
   classes: PropTypes.object,
-  socket: PropTypes.object,
+  socket: PropTypes.object
 };
 
 export default compose(
