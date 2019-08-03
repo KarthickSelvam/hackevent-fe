@@ -61,24 +61,29 @@ class Login extends Component {
   }
 
   async handleLogin(event) {
-		event.preventDefault();
-		const email = encodeURIComponent(this.state.user.email);
+    event.preventDefault();
+    const email = encodeURIComponent(this.state.user.email);
     const password = encodeURIComponent(this.state.user.password);
     const formData = `email=${email}&password=${password}`;
-    const response = await request('POST', 'http://localhost:3001/auth/login', {
-      'Content-type': 'application/x-www-form-urlencoded'
-		}, formData);
-    if (response.data.success) {
-			Auth.authenticateUser(response.data.token);
-			this.props.history.push('/');
-		} else {
-			this.setState({ errors: response.response.data });
-		}
+    const response = await request(
+      'POST',
+      'http://localhost:3001/auth/login',
+      {
+        'Content-type': 'application/x-www-form-urlencoded'
+      },
+      formData
+    );
+    if (response.data && response.data.success) {
+      Auth.authenticateUser(response.data.token);
+      this.props.history.push('/');
+    } else {
+      this.setState({ errors: response.data });
+    }
   }
 
   render() {
     const { classes } = this.props;
-    const { user } = this.state;
+    const { user, errors } = this.state;
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -124,6 +129,16 @@ class Login extends Component {
               className={classes.submit}>
               Sign In
             </Button>
+            {errors && errors.message && (
+              <div
+                style={{
+                  color: 'red',
+                  textAlign: 'center',
+                  margin: '5px 0px'
+                }}>
+                {errors.message}
+              </div>
+            )}
             <Grid container>
               <Grid item>
                 <Link href="/signup" variant="body2">
