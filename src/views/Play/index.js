@@ -14,7 +14,6 @@ import {
 import image from '../../assets/img/background-image.jpg';
 import Call from '../../components/Agora';
 import Profile from '../../components/Profile/profile';
-import Timer from '../../components/Timer';
 import Highlighter from 'react-highlight-words';
 
 const styles = () => ({
