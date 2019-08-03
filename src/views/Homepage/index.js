@@ -37,23 +37,6 @@ const styles = () => ({
 });
 
 class Homepage extends Component {
-  constructor() {
-    super();
-    this.getGameUrl = this.getGameUrl.bind(this);
-  }
-
-  getGameUrl(gameType) {
-    this.props.socket.emit('join', { gameType });
-  }
-
-  joinSuccess(data) {
-    console.log(data);
-  }
-
-  componentDidMount() {
-    this.props.socket.on('join-success', this.joinSuccess);
-  }
-
   render() {
     const { classes } = this.props;
     return (
@@ -84,7 +67,7 @@ class Homepage extends Component {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => this.getGameUrl('game1')} size="small">
+                <Button href="/play" size="small">
                   Play Now
                 </Button>
               </CardActions>
@@ -107,7 +90,7 @@ class Homepage extends Component {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button onClick={() => this.getGameUrl('game2')} size="small">
+                <Button href="/game-two" size="small">
                   Play Now
                 </Button>
               </CardActions>

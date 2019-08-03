@@ -41,6 +41,7 @@ class Call extends Component {
         console.log('getUserMedia successfully');
         me.localStream.play('agora_local');
         me.joinChannel();
+        window.startSpeechRecoginition();
       },
       function(err) {
         console.log('getUserMedia failed', err);
@@ -157,7 +158,10 @@ class Call extends Component {
                 height: '85px',
                 position: 'absolute',
                 bottom: '10px',
-                right: '10px'
+                right: '10px',
+                zIndex: 1000,
+                border: '#fff solid',
+                borderRadius: '5px'
               }}
             />
           );
