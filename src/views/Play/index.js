@@ -37,6 +37,11 @@ const styles = () => ({
   pos: {
     marginBottom: 12
   },
+  speachData: {
+    flex: 1,
+    paddingRight: '160px',
+    fontSize: 'larger'
+  },
   content: {
     background:
       '-moz-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* ff3.6+ */,
@@ -59,6 +64,9 @@ const styles = () => ({
 });
 
 class Play extends Component {
+  state = {
+    speachData: ''
+  };
   constructor() {
     super();
     this.getGameUrl = this.getGameUrl.bind(this);
@@ -74,11 +82,18 @@ class Play extends Component {
 
   componentDidMount() {
     this.props.socket.on('join-success', this.joinSuccess);
+    this.setState({
+      speachData: 'Hello'
+    });
   }
-
+  getTextData = value => {
+    this.setState({
+      speachData: value
+    });
+  };
   render() {
     const { classes } = this.props;
-    let str = 'Hello morning sam';
+    let str = this.state.speachData;
     const text = 'Hello Albert Good Morning sam';
     return (
       <div>
@@ -87,7 +102,7 @@ class Play extends Component {
         </div>
         <Call channel="sam" />
         <div className={classes.content}>
-          <div>
+          <div className={classes.speachData}>
             <div style={{ color: 'blue' }}>
               <Highlighter
                 highlightStyle={{
