@@ -44,12 +44,10 @@
 
         recognizer.speechStartDetected = function() {
           console.log('Speech start detected');
-          console.log(arguments)
         };
 
         recognizer.speechEndDetected = function() {
           console.log('Speech end detected');
-          console.log(arguments)
         };
 
         recognizer.startContinuousRecognitionAsync(
@@ -61,7 +59,12 @@
           }
         );
         recognizer.recognized = function(event, data) {
-          console.log(data.result.text);
+          const recognizedEvent = new CustomEvent('recoginizer:rocognized', {
+            bubbles: true,
+            detail: { text: () => data.result.text }
+          });
+          const body = document.querySelector('body');
+          body.dispatchEvent(recognizedEvent);
         };
       }
     </script>
