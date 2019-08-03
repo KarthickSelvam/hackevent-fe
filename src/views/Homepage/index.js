@@ -38,6 +38,14 @@ class Homepage extends Component {
     this.props.socket.emit('join', { gameType });
   }
 
+  joinSuccess(data) {
+    console.log(data);
+  }
+
+  componentDidMount() {
+    this.props.socket.on('join-success', this.joinSuccess);
+  }
+
   render() {
     const { classes } = this.props;
     return (
