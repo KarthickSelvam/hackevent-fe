@@ -4,7 +4,7 @@ import { createBrowserHistory } from 'history';
 import io from 'socket.io-client';
 import { SocketProvider } from 'socket.io-react';
 import { ThemeProvider } from '@material-ui/styles';
-import { Homepage, NotFound } from './views';
+import { Homepage, GameOne, NotFound } from './views';
 
 const socket = io.connect('http://localhost:3001/');
 const browserHistory = createBrowserHistory();
@@ -17,6 +17,7 @@ class App extends Component {
           <Router history={browserHistory}>
             <Switch>
               <Route component={Homepage} exact path="/" />
+              <Route component={GameOne} exact path="/game-one" />
               <Route component={NotFound} exact path="/not-found" />
               <Redirect to="/not-found" />
             </Switch>
