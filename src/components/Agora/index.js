@@ -41,6 +41,10 @@ class Call extends Component {
         console.log('getUserMedia successfully');
         me.localStream.play('agora_local');
         me.joinChannel();
+        const body = document.querySelector('body');
+        body.addEventListener('recoginizer:rocognized', (e, data) => {
+          console.log(e.detail.text());
+        });
         window.startSpeechRecoginition();
       },
       function(err) {
