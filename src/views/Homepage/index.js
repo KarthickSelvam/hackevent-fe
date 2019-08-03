@@ -21,6 +21,9 @@ class Homepage extends Component {
   electChannel = channel => {
     this.setState({ channel });
   };
+  selectChannel = channel => {
+    this.setState({ channel });
+  };
   constructor(props) {
     super(props);
     this.state = {
