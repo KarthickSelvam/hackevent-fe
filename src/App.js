@@ -11,9 +11,9 @@ class App extends Component {
       <ThemeProvider>
         <Router history={browserHistory}>
           <Switch>
-            <Route path='/' exact component={Homepage} />
-            <Route path='/not-found' exact component={NotFound} />
-            <Redirect to='/not-found' />
+            <Route component={Homepage} exact path="/" />
+            <Route component={NotFound} exact path="/not-found" />
+            <Redirect to="/not-found" />
           </Switch>
         </Router>
       </ThemeProvider>
