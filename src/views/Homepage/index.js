@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import image from '../../assets/img/background-image.jpg';
-
+import ChannelForm from "./../../components/ChannelForm";
+import Call from "./../../components/Call";
 const styles = () => ({
   pageHeader: {
     minHeight: '100vh',
@@ -17,17 +18,20 @@ const styles = () => ({
 });
 
 class Homepage extends Component {
+  electChannel = channel => {
+    this.setState({ channel });
+  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      channel: ''
+    }
+  }
   render() {
     return (
-      <div>
-        <div
-          className={this.props.classes.pageHeader}
-          style={{
-            backgroundImage: 'url(' + image + ')',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top center'
-          }}
-        />
+      <div className="App">
+        <ChannelForm selectChannel={this.selectChannel}/>
+        <Call channel={this.state.channel}/>
       </div>
     );
   }
