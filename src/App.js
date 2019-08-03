@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { ThemeProvider } from '@material-ui/styles';
+import { Homepage, NotFound } from './views';
+const browserHistory = createBrowserHistory();
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <ThemeProvider>
+        <Router history={browserHistory}>
+          <Switch>
+            <Route path='/' exact component={Homepage} />
+            <Route path='/not-found' exact component={NotFound} />
+            <Redirect to='/not-found' />
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    );
+  }
 }
 
 export default App;
