@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
+import { socketConnect } from 'socket.io-react';
 import { Button, Card, CardActions, CardContent, Grid, Typography, withStyles } from '@material-ui/core';
 import image from '../../assets/img/background-image.jpg';
 
@@ -27,6 +29,15 @@ const styles = () => ({
 });
 
 class Homepage extends Component {
+  constructor() {
+    super();
+    this.getGameUrl = this.getGameUrl.bind(this);
+  }
+
+  getGameUrl(gameType) {
+    this.props.socket.emit('join', { gameType });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -51,7 +62,7 @@ class Homepage extends Component {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Play Now</Button>
+                <Button onClick={() => this.getGameUrl('game1')} size="small">Play Now</Button>
               </CardActions>
             </Card>
             <Card className={classes.card}>
@@ -64,7 +75,7 @@ class Homepage extends Component {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Play Now</Button>
+                <Button onClick={() => this.getGameUrl('game2')} size="small">Play Now</Button>
               </CardActions>
             </Card>
           </Grid>
@@ -75,7 +86,11 @@ class Homepage extends Component {
 }
 
 Homepage.propTypes = {
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  socket: PropTypes.object,
 };
 
-export default withStyles(styles)(Homepage);
+export default compose(
+  withStyles(styles),
+  socketConnect
+)(Homepage);
