@@ -16,7 +16,7 @@ import {
 } from './views';
 import Auth from './modules/Auth';
 
-const socket = io.connect('http://localhost:3001/');
+const socket = io.connect('http://localhost:3002/');
 const browserHistory = createBrowserHistory();
 
 const PrivateRoute = ({ component: Component, ...rest }) => (

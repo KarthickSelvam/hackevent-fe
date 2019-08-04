@@ -86,10 +86,28 @@ const styles = () => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  '@media screen and (min-width: 600px)': {
+    content: {
+      width: '100%'
+    }
   }
 });
 
 class Play extends Component {
+  data = [
+    { text: 'Good morning, do you have an appointment? ', timer: 3000 },
+    {
+      text:
+        'Excellent, there you are there. The doctor will be about 10 minutes. Have you been to this practice before?',
+      timer: 3000
+    },
+    {
+      text:
+        'Great, can you fill in this short form and can I have your Medicare card?',
+      timer: 3000
+    }
+  ];
   state = {
     speachData: '',
     showActionButton: false
@@ -162,10 +180,10 @@ class Play extends Component {
           )}
           <div className={classes.gameHeader}>
             <div className={classes.gameTitle}>
-              <h3>Role play game. </h3>
+              <h3>Roleplay game. </h3>
             </div>
             <div className={classes.gameTimer}>
-              {<Timer secs={10} onEnd={this.onEnd} />}
+              {<Timer secs={20} onEnd={this.onEnd} />}
               <label>{(' ', 'Secs.')} </label>
             </div>
           </div>
@@ -177,11 +195,6 @@ class Play extends Component {
                   borderRadius: '5px',
                   color: 'white'
                 }}
-                // unhighlightStyle={{
-                //   backgroundColor: 'red',
-                //   borderRadius: '5px',
-                //   color: 'white'
-                // }}
                 searchWords={str.split(' ')}
                 textToHighlight={text}
               />
