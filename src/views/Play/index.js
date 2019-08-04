@@ -31,31 +31,30 @@ const styles = () => ({
   speachData: {
     flex: 1,
     paddingRight: '160px',
-    fontSize: 'larger',
-    fontFamily: 'Comic Sans MS'
+    fontSize: 'larger'
   },
   content: {
     //eslint-disable-next-line
     background:
-      '-moz-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* ff3.6+ */,
+      '-moz-linear-gradient(272deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);' /* ff3.6+ */,
     //eslint-disable-next-line
     background:
-      '-webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(133,133,133,1)));' /* safari4+,chrome */,
+      '-webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(0,0,0,1)));' /* safari4+,chrome */,
     //eslint-disable-next-line
     background:
-      '-webkit-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* safari5.1+,chrome10+ */,
+      '-webkit-linear-gradient(272deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);' /* safari5.1+,chrome10+ */,
     //eslint-disable-next-line
     background:
-      '-o-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* opera 11.10+ */,
+      '-o-linear-gradient(272deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);' /* opera 11.10+ */,
     //eslint-disable-next-line
     background:
-      '-ms-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* ie10+ */,
+      '-ms-linear-gradient(272deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);' /* ie10+ */,
     //eslint-disable-next-line
     background:
-      'linear-gradient(183deg, rgba(255, 255, 255, 0) 0%, rgba(133,133,133,1) 270%);' /* w3c */,
-    width: '100%',
+      'linear-gradient(178deg, rgba(255, 255, 255, 0.13) 0%, rgba(0,0,0,1) 100%);' /* w3c */,
+
     height: '230px',
-    margin: '3px',
+    padding: '10px',
     position: 'absolute',
     bottom: '0px'
   },
@@ -66,7 +65,8 @@ const styles = () => ({
   gameTitle: {
     flex: 2,
     fontSize: 'larger',
-    fontFamily: 'Comic Sans MS'
+    fontWeight: 'bold',
+    color: 'orange'
   },
   gameTimer: {
     flex: 1,
@@ -170,7 +170,7 @@ class Play extends Component {
             </div>
           </div>
           <div className={classes.speachData}>
-            <div style={{ color: 'blue' }}>
+            <div style={{ color: 'white', fontWeight: 'bold' }}>
               <Highlighter
                 highlightStyle={{
                   backgroundColor: 'green',
