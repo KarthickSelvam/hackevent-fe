@@ -42,7 +42,7 @@ class Call extends Component {
         me.localStream.play('agora_local');
         me.joinChannel();
 
-        //window.startSpeechRecoginition();
+        window.startSpeechRecoginition();
       },
       function(err) {
         console.log('getUserMedia failed', err);

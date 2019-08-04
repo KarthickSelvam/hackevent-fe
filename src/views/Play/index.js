@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { socketConnect } from 'socket.io-react';
 import { Button, withStyles } from '@material-ui/core';
+import StringSimilarity from 'string-similarity';
 import Call from '../../components/Agora';
 import Profile from '../../components/Profile/profile';
 import Highlighter from 'react-highlight-words';
@@ -152,22 +153,20 @@ class Play extends Component {
     const { classes } = this.props;
     let str = this.state.speachData;
     console.log(str);
-    const text = 'Hello everyone, Welcome to bootstrap paradox hackathon';
+    const text = 'Hello everyone, Welcome to bootstrap paradox hackathon.';
+    const percentage = Math.round(
+      StringSimilarity.compareTwoStrings(text, str) * 100
+    );
+    localStorage.setItem('score', percentage);
     return (
       <div>
         <div className={classes.topContent}>
-          <Profile name="Samuvel johnson" />
+          <Profile name="Samuvel Johnson" />
         </div>
         <Call channel="sam" />
         <div className={classes.content}>
           {this.state.activeButtons && (
             <div className={classes.activeButtons}>
-              <Button
-                variant="contained"
-                size="small"
-                className={classes.margin}>
-                Retry
-              </Button>
               <Button
                 href="/scores"
                 variant="contained"
@@ -180,10 +179,10 @@ class Play extends Component {
           )}
           <div className={classes.gameHeader}>
             <div className={classes.gameTitle}>
-              <h3>Roleplay game. </h3>
+              <h3>Roleplay game.</h3>
             </div>
             <div className={classes.gameTimer}>
-              {<Timer secs={20} onEnd={this.onEnd} />}
+              {<Timer secs={10} onEnd={this.onEnd} />}
               <label>{(' ', 'Secs.')} </label>
             </div>
           </div>
