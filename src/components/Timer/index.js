@@ -28,7 +28,7 @@ const Timer = props => {
   return (
     <div className="app">
       <div className="time" style={{ fontSize: '24px' }}>
-        {seconds}s
+        {seconds}
       </div>
     </div>
   );

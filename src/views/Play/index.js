@@ -69,7 +69,7 @@ const styles = () => ({
     color: 'orange'
   },
   gameTimer: {
-    flex: 1,
+    flex: 0.5,
     margin: '10px',
     display: 'flex',
     justifyContent: 'flex-end',
@@ -165,8 +165,8 @@ class Play extends Component {
               <h3>Role play game. </h3>
             </div>
             <div className={classes.gameTimer}>
-              <label>Time rem. </label>
-              {(' ', <Timer secs={10} onEnd={this.onEnd} />)}
+              {<Timer secs={10} onEnd={this.onEnd} />}
+              <label>{(' ', 'Secs.')} </label>
             </div>
           </div>
           <div className={classes.speachData}>
