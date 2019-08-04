@@ -11,11 +11,12 @@ import {
   Typography,
   withStyles
 } from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
 import image from '../../assets/img/background-image.jpg';
 import Call from '../../components/Agora';
 import Profile from '../../components/Profile/profile';
 import Highlighter from 'react-highlight-words';
-
+import Timer from '../../components/Timer';
 const styles = () => ({
   pageHeader: {
     minHeight: '100vh',
@@ -40,7 +41,8 @@ const styles = () => ({
   speachData: {
     flex: 1,
     paddingRight: '160px',
-    fontSize: 'larger'
+    fontSize: 'larger',
+    fontFamily: 'Comic Sans MS'
   },
   content: {
     background:
@@ -56,16 +58,45 @@ const styles = () => ({
     background:
       'linear-gradient(183deg, rgba(255, 255, 255, 0) 0%, rgba(133,133,133,1) 270%);' /* w3c */,
     width: '100%',
-    height: '100px',
+    height: '200px',
     margin: '3px',
     position: 'absolute',
     bottom: '0px'
+  },
+  gameHeader: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  gameTitle: {
+    flex: 2,
+    fontSize: 'larger',
+    fontFamily: 'Comic Sans MS'
+  },
+  gameTimer: {
+    flex: 1,
+    margin: '10px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '10px',
+    background: '#d62a1975',
+    borderRadius: '26px',
+    color: '#fff',
+    alignItems: 'center'
+  },
+  margin: {
+    margin: '5px'
+  },
+  activeButtons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 
 class Play extends Component {
   state = {
-    speachData: ''
+    speachData: '',
+    showActionButton: false
   };
   constructor() {
     super();
@@ -82,8 +113,15 @@ class Play extends Component {
 
   componentDidMount() {
     this.props.socket.on('join-success', this.joinSuccess);
-    this.setState({
-      speachData: 'Hello'
+
+    const body = document.querySelector('body');
+    body.addEventListener('recoginizer:rocognized', (e, data) => {
+      console.log(e.detail.text());
+      if (e.detail.text()) {
+        this.setState({
+          speachData: e.detail.text()
+        });
+      }
     });
   }
   getTextData = value => {
@@ -91,9 +129,15 @@ class Play extends Component {
       speachData: value
     });
   };
+  onEnd = () => {
+    this.setState({
+      activeButtons: true
+    });
+  };
   render() {
     const { classes } = this.props;
     let str = this.state.speachData;
+    console.log(str);
     const text = 'Hello Albert Good Morning sam';
     return (
       <div>
@@ -102,19 +146,45 @@ class Play extends Component {
         </div>
         <Call channel="sam" />
         <div className={classes.content}>
+          {this.state.activeButtons && (
+            <div className={classes.activeButtons}>
+              <Button
+                variant="contained"
+                size="small"
+                className={classes.margin}>
+                Retry
+              </Button>
+              <Button
+                variant="contained"
+                size="small"
+                color="primary"
+                className={classes.margin}>
+                Done
+              </Button>
+            </div>
+          )}
+          <div className={classes.gameHeader}>
+            <div className={classes.gameTitle}>
+              <h3>Role play game. </h3>
+            </div>
+            <div className={classes.gameTimer}>
+              <label>Time rem. </label>
+              {(' ', <Timer secs={10} onEnd={this.onEnd} />)}
+            </div>
+          </div>
           <div className={classes.speachData}>
             <div style={{ color: 'blue' }}>
               <Highlighter
                 highlightStyle={{
-                  backgroundColor: 'transparent',
+                  backgroundColor: 'green',
                   borderRadius: '5px',
                   color: 'white'
                 }}
-                unhighlightStyle={{
-                  backgroundColor: 'red',
-                  borderRadius: '5px',
-                  color: 'white'
-                }}
+                // unhighlightStyle={{
+                //   backgroundColor: 'red',
+                //   borderRadius: '5px',
+                //   color: 'white'
+                // }}
                 searchWords={str.split(' ')}
                 textToHighlight={text}
               />

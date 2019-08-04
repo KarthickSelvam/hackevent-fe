@@ -61,7 +61,10 @@
         recognizer.recognized = function(event, data) {
           const recognizedEvent = new CustomEvent('recoginizer:rocognized', {
             bubbles: true,
-            detail: { text: () => data.result.text }
+            detail: {
+              text: () => data.result.text,
+              prevtext: () => data.privResult.text
+            }
           });
           const body = document.querySelector('body');
           body.dispatchEvent(recognizedEvent);
