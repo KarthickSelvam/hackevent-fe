@@ -156,7 +156,7 @@ class Call extends Component {
               id={`agora_remote ${streamId}`}
               style={{
                 width: '100px',
-                height: '85px',
+                height: '100px',
                 position: 'absolute',
                 bottom: '10px',
                 right: '10px',

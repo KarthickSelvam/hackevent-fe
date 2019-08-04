@@ -2,17 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { socketConnect } from 'socket.io-react';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  Typography,
-  withStyles
-} from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import image from '../../assets/img/background-image.jpg';
+import { Button, withStyles } from '@material-ui/core';
 import Call from '../../components/Agora';
 import Profile from '../../components/Profile/profile';
 import Highlighter from 'react-highlight-words';
@@ -45,20 +35,26 @@ const styles = () => ({
     fontFamily: 'Comic Sans MS'
   },
   content: {
+    //eslint-disable-next-line
     background:
       '-moz-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* ff3.6+ */,
+    //eslint-disable-next-line
     background:
       '-webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(133,133,133,1)));' /* safari4+,chrome */,
+    //eslint-disable-next-line
     background:
       '-webkit-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* safari5.1+,chrome10+ */,
+    //eslint-disable-next-line
     background:
       '-o-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* opera 11.10+ */,
+    //eslint-disable-next-line
     background:
       '-ms-linear-gradient(267deg, rgba(255,255,255,1) 0%, rgba(133,133,133,1) 100%);' /* ie10+ */,
+    //eslint-disable-next-line
     background:
       'linear-gradient(183deg, rgba(255, 255, 255, 0) 0%, rgba(133,133,133,1) 270%);' /* w3c */,
     width: '100%',
-    height: '200px',
+    height: '230px',
     margin: '3px',
     position: 'absolute',
     bottom: '0px'
@@ -138,7 +134,7 @@ class Play extends Component {
     const { classes } = this.props;
     let str = this.state.speachData;
     console.log(str);
-    const text = 'Hello Albert Good Morning sam';
+    const text = 'Hello everyone, Welcome to bootstrap paradox hackathon';
     return (
       <div>
         <div className={classes.topContent}>
@@ -155,6 +151,7 @@ class Play extends Component {
                 Retry
               </Button>
               <Button
+                href="/scores"
                 variant="contained"
                 size="small"
                 color="primary"

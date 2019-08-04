@@ -5,7 +5,15 @@ import io from 'socket.io-client';
 import { SocketProvider } from 'socket.io-react';
 import { ThemeProvider } from '@material-ui/styles';
 
-import { Login, Signup, Homepage, GameOne, NotFound, Play } from './views';
+import {
+  Login,
+  Signup,
+  Homepage,
+  GameOne,
+  NotFound,
+  Play,
+  Result
+} from './views';
 import Auth from './modules/Auth';
 
 const socket = io.connect('http://localhost:3001/');
@@ -90,6 +98,7 @@ class App extends Component {
                 toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()}
               />
               <Route component={Play} exact path="/play" />
+              <Route component={Result} exact path="/scores" />
               <Route component={GameOne} exact path="/game-one" />
               <Route component={NotFound} exact path="/not-found" />
               <Redirect to="/not-found" />
